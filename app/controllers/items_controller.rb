@@ -5,6 +5,9 @@ class ItemsController < ApplicationController
         @items = Item.all
     end
 
+    def show
+    end
+
     def create
         @item = Item.new(items_params)
         if @item.save
@@ -34,6 +37,14 @@ class ItemsController < ApplicationController
         end
     end
 
+    def destroy
+        @item.destroy
+        redirect_to items_path
+    end
+
+
+    private
+    
     def items_params
         params.require(:item).permit(:item_name, :available_stock)
     end

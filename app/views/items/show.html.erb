@@ -1,0 +1,4 @@
+<p><%= simple_format(@item.item_name) %></p>
+<p><%= @item.available_stock %></p>
+<%= link_to "Edit", edit_item_path(@item) %>
+<%= link_to "Delete", item_path(@item), method: :delete, data: {confirm: "Are you sure?"} %>
