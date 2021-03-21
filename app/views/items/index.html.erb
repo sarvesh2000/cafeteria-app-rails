@@ -1,1 +1,18 @@
-<h1>Hello</h1>
+<h1>Items List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @items.each do |item| %>
+        <tr>
+            <td><%= item.item_name %></td>
+            <td>Placeholder</td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+    <p></p>
