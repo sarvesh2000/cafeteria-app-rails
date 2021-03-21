@@ -1,13 +1,15 @@
 class ItemsController < ApplicationController
+    before_action :set_item, only: [:show, :update, :edit, :destroy]
+    
     def index
         @items = Item.all
     end
 
     def create
-        @items = Item.new(items_params)
-        if @items.save
+        @item = Item.new(items_params)
+        if @item.save
             #flash[:notice] = "Article was created successfully."
-            @items.save()
+            @item.save()
             redirect_to items_path(@item)
             # or we can write like this
             #redirect_to @article
@@ -17,10 +19,26 @@ class ItemsController < ApplicationController
     end
 
     def new
-        @items = Item.new
+        @item = Item.new
+    end
+
+    def edit
+    end
+
+    def update
+        if @item.update(items_params)
+            @item.save()
+            redirect_to(items_path)
+        else
+            render "edit"
+        end
     end
 
     def items_params
-        params.permit(:item_name, :available_stock)
+        params.require(:item).permit(:item_name, :available_stock)
+    end
+
+    def set_item
+        @item = Item.find(params[:id])
     end
 end

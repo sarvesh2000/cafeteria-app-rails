@@ -1,6 +1,2 @@
 <h1>Create New Item</h1>
-<%= form_with(model: @item, url: items_path) do |f| %>
-    <input type="text" name="item_name" id="item_name">    
-    <input type="number" name="available_stock" id="item_stock">
-    <%= f.submit %>
-<% end %>
+<%= render 'form' %>
