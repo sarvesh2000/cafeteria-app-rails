@@ -1,0 +1,16 @@
+<h1>Owner Signup</h1>
+<%= form_with(model: @owner, url: owners_path, local: true) do |f| %>
+    <div class="mb-3">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, placeholder: "Enter your email address", class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, placeholder: "Enter your password", class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :cafeteria_name, class: "form-label" %>
+        <%= f.text_field :cafeteria_name, placeholder: "Enter your cafeteria name", class: "form-control" %>
+    </div>
+    <%= f.submit "Log in", class: "btn btn-primary" %>
+<% end %>

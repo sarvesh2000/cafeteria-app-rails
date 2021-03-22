@@ -10,5 +10,8 @@ Rails.application.routes.draw do
   post "signin", to: "sessions#create"
   get "customerSignin", to: "sessions#newCustomer"
   post "customerSignin", to: "sessions#createCustomer"
+  resources :owners
+  get "ownerSignin", to: "sessions#newOwner"
+  post "ownerSignin", to: "sessions#createOwner"
   delete "logout", to: "sessions#destroy"
 end
