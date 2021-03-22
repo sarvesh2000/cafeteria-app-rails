@@ -1,0 +1,7 @@
+<%= form_with(scope: :session, url: customerSignin_path, local: true) do |f| %>
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Enter your email address" %>
+    <%= f.label :password %>
+    <%= f.password_field :password, placeholder: "Enter your password" %>
+    <%= f.submit "Log in" %>
+<% end %>
