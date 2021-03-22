@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   resources :items
   get "signup", to: "users#new"
   resources :users, except: [:new]
+  get "signin", to: "sessions#new"
+  post "signin", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
 end
