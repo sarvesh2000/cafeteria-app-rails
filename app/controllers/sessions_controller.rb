@@ -4,13 +4,13 @@ class SessionsController < ApplicationController
 
     def newCustomer
     end
-    
+
     def create
         user = CafeteriaUser.find_by(email: params[:session][:email].downcase)
         if user && user.authenticate(params[:session][:password])
             session[:user_id] = user.id
             # flash[:notice] = "Logged in successfully"
-            redirect_to items_path
+            redirect_to users_path
         else
             # flash.now[:alert] = "There was something wrong with your login details"
             render 'new'
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:session][:password])
             session[:user_id] = user.id
             # flash[:notice] = "Logged in successfully"
-            redirect_to items_path
+            redirect_to customers_path
         else
             # flash.now[:alert] = "There was something wrong with your login details"
             render 'newCustomer'
