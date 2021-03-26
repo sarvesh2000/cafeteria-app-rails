@@ -22,6 +22,20 @@ class CustomersController < ApplicationController
         end
     end
 
+    def checkout
+        @cart = load_cart
+        byebug
+        @cart.each do |item|
+            @order = Order.new
+            @item = Item.find(item.id)
+            @order.item_id = @item.id
+            @order.amount = @item.price
+            @order.quantity = 1
+            @order.save
+        end
+        return redirect_to customers_path
+    end
+
     private
     def user_params
         params.require(:customer).permit(:email, :password)
