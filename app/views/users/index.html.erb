@@ -1,2 +1,59 @@
+<%= render 'navigation' %>
 <h1>Cafeteria Users Dashboard</h1>
-<%= link_to 'Logout', logout_path, method: :delete %>
+<!-- dashboard user msg -->
+    <div class="container dashboard-container">
+      <div class="user-msg pb-5">
+        <div class="text-center">
+          <i class="fas fa-user"></i>
+          <h3 class="purple-txt">Welcome <span id="user"></span></h3>
+          <h6 class="text-muted">
+            View your exisiting orders , create a new order & order history in this
+            dashboard
+          </h6>
+        </div>
+      </div>
+      <div class="row card-container">
+        <div class="col-lg-4">
+          <div
+            class="card text-center card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+          >
+            <div class="card-body">
+              <i class="fas fa-bookmark"></i>
+              <h5 class="card-title mt-2">View Currently Active Orders</h5>
+              <p class="card-title count">
+                <span id="existingTotal"></span>
+                <a href="existing_jobs.html" class="btn">View Active Orders</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="card text-center bg-light card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+          >
+            <div class="card-body">
+              <i class="fas fa-file-signature"></i>
+              <h5 class="card-title mt-2">View Assigned Jobs</h5>
+              <p class="card-title">
+                <span id="newTotal"></span>
+                <a href="newjobs.html" class="btn">View Assigned Jobs</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div
+            class="card text-center bg-light card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+          >
+            <div class="card-body mt-2">
+              <i class="fas fa-book-open"></i>
+              <h5 class="card-title">Total number of works completed</h5>
+              <p class="card-title">
+                <span id="completedTotal"></span>
+                <a href="jobs_history.html" class="btn">View History</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
