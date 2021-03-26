@@ -42,6 +42,17 @@ class ItemsController < ApplicationController
         redirect_to items_path
     end
 
+    def addToCart
+        id = params[:id].to_i
+        session[:cart] << id
+        redirect_to customers_path
+    end
+
+    def removeFromCart
+        id = params[:id].to_i
+        session[:cart].delete(id)
+        redirect_to customers_path
+    end
 
     private
     

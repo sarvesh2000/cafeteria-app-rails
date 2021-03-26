@@ -1,9 +1,12 @@
 class CustomersController < ApplicationController
+    before_action :initialize_cart
+    before_action :load_cart
     def new
         @user = Customer.new
     end
 
     def index
+        @items = Item.all
     end
 
     def create
@@ -22,5 +25,13 @@ class CustomersController < ApplicationController
     private
     def user_params
         params.require(:customer).permit(:email, :password)
+    end
+
+    def initialize_cart
+        session[:cart] ||= []
+    end
+
+    def load_cart
+        @cart = Item.find(session[:cart])
     end
 end

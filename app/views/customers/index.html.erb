@@ -1,2 +1,38 @@
 <h1>Customers Ordering Page</h1>
 <%= link_to 'Logout', logout_path, method: :delete %>
+<details>
+    <summary>Cart</summary>
+    <% if @cart.empty? %>
+        <p>Cart is Empty</p>
+    <% else %>
+    <ul>
+        <% @cart.each do |product| %>
+            <li><%= product.item_name %></li>
+            <li>
+                <%= link_to "Remove From Cart", remove_from_cart_path(product.id), method: :delete %>
+            </li>
+        <% end %>
+    </ul>
+    <% end %>
+</details>
+
+<table>
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @items.each do |item| %>
+        <tr>
+            <td><%= item.item_name %></td>
+            <td>
+                <%= link_to "Add To Cart", add_to_cart_path(item.id), method: :post %>
+            </td>
+                <td>
+                </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
