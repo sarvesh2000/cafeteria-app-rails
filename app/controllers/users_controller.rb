@@ -4,6 +4,9 @@ class UsersController < ApplicationController
     end
 
     def index
+        @pendingCount = Order.where(status: "pending").count
+        @completedCount = Order.where(status: "completed").count
+        @totalCount = Order.all.count
     end
 
     def create
@@ -17,6 +20,11 @@ class UsersController < ApplicationController
         else
             render "new"
         end
+    end
+
+    def viewPendingOrders
+        @pendingOrders = Order.where(status: "pending")
+        return render "pendingOrders"
     end
 
     private

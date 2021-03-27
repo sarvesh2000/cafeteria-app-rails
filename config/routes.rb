@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete "/items/cart/remove/:id", to: "items#removeFromCart", as: "remove_from_cart"
   get "signup", to: "users#new"
   resources :users, except: [:new]
+  get "/users/orders/view/pending", to: "users#viewPendingOrders", as: "view_pending_orders"
   get "customerSignup", to: "customers#new"
   resources :customers, except: [:new]
   get "signin", to: "sessions#new"
