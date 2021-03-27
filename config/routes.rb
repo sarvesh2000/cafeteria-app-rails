@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   post "ownerSignin", to: "sessions#createOwner"
   delete "logout", to: "sessions#destroy"
   post "checkout", to: "customers#checkout", as: "checkout"
+  post "orders/complete/:id", to: "users#completeOrder", as: "complete_order"
 end

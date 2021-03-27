@@ -17,7 +17,7 @@
                     <td><%= item.item_name %></td>
                     <td><%= order.quantity * item.price %></td>
                 <% end %>
-                <td><%= link_to "Mark as Completed", "#" %></td>
+                <td><%= link_to "Mark as Completed", complete_order_path(order.id), method: :post %></td>
             </tr>
         <% end %>
     </tbody>

@@ -27,6 +27,13 @@ class UsersController < ApplicationController
         return render "pendingOrders"
     end
 
+    def completeOrder
+        @order = Order.find(params[:id])
+        @order.status = "completed"
+        @order.save
+        redirect_to users_path
+    end
+
     private
     def user_params
         params.require(:cafeteria_user).permit(:email, :password)
