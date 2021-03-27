@@ -24,14 +24,18 @@ class CustomersController < ApplicationController
 
     def checkout
         @cart = load_cart
-        byebug
         @cart.each do |item|
             @order = Order.new
+            @order_items = OrderItem.new
             @item = Item.find(item.id)
             @order.item_id = @item.id
-            @order.amount = @item.price
-            @order.quantity = 1
+            @order_items.item_id = @item.id
+            @order.amount = (@item.price * session[:cart][0][@item.id.to_s])
+            @order.quantity = session[:cart][0][@item.id.to_s]
+            @order.status = "pending"
             @order.save
+            @order_items.order_id = @order.id
+            @order_items.save
         end
         return redirect_to customers_path
     end
