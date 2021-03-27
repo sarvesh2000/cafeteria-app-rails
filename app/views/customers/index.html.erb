@@ -8,6 +8,7 @@
     <ul>
         <% @cart.each do |product| %>
             <li><%= product.item_name %></li>
+            <li><%= session[:cart][0][product.id.to_s] %></li>
             <li>
                 <%= link_to "Remove From Cart", remove_from_cart_path(product.id), method: :delete %>
             </li>

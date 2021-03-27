@@ -43,14 +43,31 @@ class ItemsController < ApplicationController
     end
 
     def addToCart
-        id = params[:id].to_i
-        session[:cart] << id
+        id = params[:id]
+        if session[:cart].empty?
+            cartHash = Hash.new
+            cartHash.store(id, 1)
+            session[:cart] << cartHash
+        else
+            if session[:cart][0].has_key?(id)
+                count = session[:cart][0][id]
+                puts count
+                session[:cart][0][id] = count+1
+            else
+                session[:cart][0].store(id, 1)
+            end
+        end
         redirect_to customers_path
     end
 
     def removeFromCart
-        id = params[:id].to_i
-        session[:cart].delete(id)
+        id = params[:id]
+        if session[:cart][0][id] > 1
+            value = session[:cart][0][id] - 1
+            session[:cart][0][id] = value
+        else
+            session[:cart][0].delete(id)
+        end
         redirect_to customers_path
     end
 

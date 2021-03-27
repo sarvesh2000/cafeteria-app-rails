@@ -46,6 +46,6 @@ class CustomersController < ApplicationController
     end
 
     def load_cart
-        @cart = Item.find(session[:cart])
+        @cart = Item.find(session[:cart][0].keys)
     end
 end
