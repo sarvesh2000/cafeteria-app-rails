@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_063711) do
+ActiveRecord::Schema.define(version: 2021_03_27_174138) do
 
   create_table "cafeteria_owners", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_063711) do
   end
 
   create_table "owner_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "owner_id"
+    t.bigint "cafeteria_owner_id"
     t.bigint "item_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

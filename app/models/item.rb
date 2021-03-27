@@ -3,5 +3,6 @@ class Item < ApplicationRecord
     validates :available_stock, presence: true
     has_many :order_items
     has_many :orders, :through => :order_items
+    has_many :owner_items
     has_one :cafeteria_owner, :through => :owner_items
 end
