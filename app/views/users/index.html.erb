@@ -37,7 +37,8 @@
             <h5 class="card-title mt-2">View Completed Orders</h5>
             <p class="card-title">
             <span id="newTotal"><%= @completedCount %></span>
-            <a href="newjobs.html" class="btn">View Assigned Jobs</a>
+            <%= link_to "View Completed Orders", view_completed_orders_path, class: "btn" %>
+            <!-- <a href="newjobs.html" class="btn">View Assigned Jobs</a> -->
             </p>
         </div>
         </div>

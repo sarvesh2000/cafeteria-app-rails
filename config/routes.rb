@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "signup", to: "users#new"
   resources :users, except: [:new]
   get "/users/orders/view/pending", to: "users#viewPendingOrders", as: "view_pending_orders"
+  get "/users/orders/view/completed", to: "users#viewCompletedOrders", as: "view_completed_orders"
   get "customerSignup", to: "customers#new"
   resources :customers, except: [:new]
   get "signin", to: "sessions#new"

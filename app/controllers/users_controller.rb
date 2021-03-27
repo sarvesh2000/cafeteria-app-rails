@@ -24,7 +24,12 @@ class UsersController < ApplicationController
 
     def viewPendingOrders
         @pendingOrders = Order.where(status: "pending")
-        return render "pendingOrders"
+        render "pendingOrders"
+    end
+
+    def viewCompletedOrders
+        @completedOrders = Order.where(status: "completed")
+        render "completedOrders"
     end
 
     def completeOrder
