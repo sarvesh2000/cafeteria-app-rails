@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   post "checkout", to: "customers#checkout", as: "checkout"
   post "orders/complete/:id", to: "users#completeOrder", as: "complete_order"
+  get "customers/:cafeteria_id/cafeteria", to: "customers#viewCafeteria", as: "cafeteria_profile"
 end

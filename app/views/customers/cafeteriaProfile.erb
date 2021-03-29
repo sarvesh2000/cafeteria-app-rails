@@ -1,0 +1,56 @@
+<%= render 'navigation' %>
+<h1>Customers Ordering Page</h1>
+<details>
+    <summary>Cart</summary>
+    <% if @cart.empty? %>
+        <p>Cart is Empty</p>
+    <% else %>
+    <ul>
+        <% @cart.each do |product| %>
+            <li><%= product.item_name %></li>
+            <li><%= session[:cart][0][product.id.to_s] %></li>
+            <li>
+                <%= link_to "Remove From Cart", remove_from_cart_path(product.id), method: :delete %>
+            </li>
+        <% end %>
+    </ul>
+    <%= link_to "Checkout", checkout_path, method: :post %>
+    <% end %>
+</details>
+<div class="orphanage-body-container">
+        <!-- jumbotron-->
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <img
+                  src="https://images.unsplash.com/photo-1541173109020-9c5d8a48e169?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=999&q=80"
+                  class="card-img-top"
+                  alt="..."
+                />
+              </div>
+              <div class="col-lg-6">
+                <h1 class="display-5" id="name"><%= @cafeteria_name %></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Menu -->
+        <div class="container requirements-list-container pb-2">
+          <div class="row">
+            <h4 class="ml-3 mb-3">Menu</h4>
+            <div class="col-sm-12">
+                <% @items.each do |item| %>
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                        <div class="card-body">
+                        <h5 class="card-title"><%= item.item_name %></h5>
+                        <p class="card-text"><%= item.price %></p>
+                        <%= link_to "Add To Cart", add_to_cart_path(item.id), class: "btn bg-black", method: :post %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

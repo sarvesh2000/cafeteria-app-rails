@@ -1,40 +1,120 @@
+<%= render 'navigation' %>
 <h1>Customers Ordering Page</h1>
 <%= link_to 'Logout', logout_path, method: :delete %>
-<details>
-    <summary>Cart</summary>
-    <% if @cart.empty? %>
-        <p>Cart is Empty</p>
-    <% else %>
-    <ul>
-        <% @cart.each do |product| %>
-            <li><%= product.item_name %></li>
-            <li><%= session[:cart][0][product.id.to_s] %></li>
-            <li>
-                <%= link_to "Remove From Cart", remove_from_cart_path(product.id), method: :delete %>
-            </li>
+<div class="donor-body-container container mt-5">
+      <div class="row" id="cards">
+        <% @cafeterias.each do |cafeteria| %>
+            <div class="col-lg-4">
+            <div class="card shadow p-3 mb-5 bg-white rounded">
+                <img
+                src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                class="card-img-top"
+                alt="..."
+                />
+                <div class="card-body">
+                <h5 class="card-title"><%= cafeteria.cafeteria_name %></h5>
+                <!-- <a href="orphanageProfile.html" class="btn btn-primary"
+                    >View More Details</a
+                > -->
+                <%= link_to 'View More Details', cafeteria_profile_path(cafeteria.id), class: "btn btn-primary" %>
+                </div>
+            </div>
+            </div>
         <% end %>
-    </ul>
-    <%= link_to "Checkout", checkout_path, method: :post %>
-    <% end %>
-</details>
-
-<table>
-    <thead>
-        <tr>
-            <th>Item Name</th>
-            <th colspan="3">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @items.each do |item| %>
-        <tr>
-            <td><%= item.item_name %></td>
-            <td>
-                <%= link_to "Add To Cart", add_to_cart_path(item.id), method: :post %>
-            </td>
-                <td>
-                </td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
+        <!-- <div class="col-lg-4">
+          <div class="card shadow p-3 mb-5 bg-white rounded">
+            <img
+              src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="orphanageProfile.html" class="btn btn-primary"
+                >View More Details</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow p-3 mb-5 bg-white rounded">
+            <img
+              src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="orphanageProfile.html" class="btn btn-primary"
+                >View More Details</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow p-3 mb-5 bg-white rounded">
+            <img
+              src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="orphanageProfile.html" class="btn btn-primary"
+                >View More Details</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow p-3 mb-5 bg-white rounded">
+            <img
+              src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="orphanageProfile.html" class="btn btn-primary"
+                >View More Details</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow p-3 mb-5 bg-white rounded">
+            <img
+              src="https://images.unsplash.com/photo-1453967854176-7e6e8270b0b8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+              <a href="orphanageProfile.html" class="btn btn-primary"
+                >View More Details</a
+              >
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>

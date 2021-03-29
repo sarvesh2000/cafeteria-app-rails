@@ -43,7 +43,10 @@ class ItemsController < ApplicationController
     end
 
     def addToCart
+        puts "Request Params"
+        puts request.params
         id = params[:id]
+        
         if session[:cart].empty?
             cartHash = Hash.new
             cartHash.store(id, 1)
@@ -57,7 +60,7 @@ class ItemsController < ApplicationController
                 session[:cart][0].store(id, 1)
             end
         end
-        redirect_to customers_path
+        redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
 
     def removeFromCart
@@ -68,7 +71,7 @@ class ItemsController < ApplicationController
         else
             session[:cart][0].delete(id)
         end
-        redirect_to customers_path
+        redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
 
     private

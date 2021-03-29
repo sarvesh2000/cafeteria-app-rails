@@ -6,7 +6,8 @@ class CustomersController < ApplicationController
     end
 
     def index
-        @items = Item.all
+        @cafeterias = CafeteriaOwner.all
+        # @items = Item.all
     end
 
     def create
@@ -40,6 +41,13 @@ class CustomersController < ApplicationController
         return redirect_to customers_path
     end
 
+    def viewCafeteria
+        session[:cafeteria_id] = params[:cafeteria_id]
+        @items = CafeteriaOwner.find(params[:cafeteria_id]).items
+        @cafeteria_name = CafeteriaOwner.find(params[:cafeteria_id]).cafeteria_name
+        render "cafeteriaProfile"
+    end
+
     private
     def user_params
         params.require(:customer).permit(:email, :password)
@@ -50,6 +58,10 @@ class CustomersController < ApplicationController
     end
 
     def load_cart
-        @cart = Item.find(session[:cart][0].keys)
+        if session[:cart][0]
+            @cart = Item.find(session[:cart][0].keys)
+        else
+            @cart = []
+        end
     end
 end
