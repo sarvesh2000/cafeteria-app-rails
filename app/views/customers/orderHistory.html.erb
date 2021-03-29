@@ -1,0 +1,35 @@
+    <%= render 'navigation' %>
+    <!-- Main body -->
+    <!-- table msg -->
+    <div class="table-msg text-left container pt-5 pb-2">
+      <h3><i class="fas fa-history pr-1"></i>Order History</h3>
+      <p class="pt-2 text-muted">View this table for your Orders done</p>
+    </div>
+
+    <!--design table-->
+    <div class="container">
+      <table class="table shadow p-3 mb-5 bg-white table-responsive-md">
+        <thead>
+          <tr class="table100-head">
+            <th class="column1">Order ID</th>
+            <th class="column2">Item Name</th>
+            <th class="column3">Quantity</th>
+            <th class="column4">Amount</th>
+            <th class="column5">Status</th>
+            <th class="column6">Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="content">
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="column1"><%= order.id %></td>
+              <td class="column2"><%= order.items.first.item_name %></td>
+              <td class="column3"><%= order.quantity %></td>
+              <td class="column4"><%= order.amount %></td>
+              <td class="column5"><%= order.status %></td>
+              <td class="column6"><%= order.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>

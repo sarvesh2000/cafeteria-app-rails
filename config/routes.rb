@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "/users/orders/view/pending", to: "users#viewPendingOrders", as: "view_pending_orders"
   get "/users/orders/view/completed", to: "users#viewCompletedOrders", as: "view_completed_orders"
   get "customerSignup", to: "customers#new"
-  resources :customers, except: [:new]
+  resources :customers, except: [:new, :show]
   get "signin", to: "sessions#new"
   post "signin", to: "sessions#create"
   get "customerSignin", to: "sessions#newCustomer"
@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   post "checkout", to: "customers#checkout", as: "checkout"
   post "orders/complete/:id", to: "users#completeOrder", as: "complete_order"
   get "customers/:cafeteria_id/cafeteria", to: "customers#viewCafeteria", as: "cafeteria_profile"
+  get "customers/orders", to: "customers#orderHistory", as: "customer_order_history"
 end

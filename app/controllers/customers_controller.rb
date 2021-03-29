@@ -48,6 +48,11 @@ class CustomersController < ApplicationController
         render "cafeteriaProfile"
     end
 
+    def orderHistory
+        @orders = Order.where(customer_id: session[:user_id])
+        render "orderHistory"
+    end
+
     private
     def user_params
         params.require(:customer).permit(:email, :password)
