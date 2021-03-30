@@ -1,5 +1,8 @@
 class OwnersController < ApplicationController
     def index
+        @totalSalesToday = Order.where("DATE(created_at) = ?", Date.today).sum("amount")
+        @totalOrdersToday = Order.where("DATE(created_at) = ?", Date.today).count
+        @totalSalesWeek = Order.where("DATE(created_at) BETWEEN ? AND ?", Date.today.beginning_of_week, Date.today.end_of_week).sum("amount")
     end
 
     def new

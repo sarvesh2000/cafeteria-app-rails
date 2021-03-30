@@ -29,6 +29,22 @@ class SessionsController < ApplicationController
         end
     end
 
+    def newOwner
+        render "newOwner"
+    end
+
+    def createOwner 
+        user = CafeteriaOwner.find_by(email: params[:session][:email].downcase)
+        if user && user.authenticate(params[:session][:password])
+            session[:user_id] = user.id
+            # flash[:notice] = "Logged in successfully"
+            redirect_to owners_path
+        else
+            # flash.now[:alert] = "There was something wrong with your login details"
+            render 'newOwner'
+        end
+    end
+
     def destroy
         session[:user_id] = nil
         # flash[:notice] = "Logged out"

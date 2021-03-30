@@ -34,6 +34,8 @@ class CustomersController < ApplicationController
             @order.amount = (@item.price * session[:cart][0][@item.id.to_s])
             @order.quantity = session[:cart][0][@item.id.to_s]
             @order.status = "pending"
+            @order.customer_id = session[:user_id]
+            @order.owner_id = session[:cafeteria_id]
             @order.save
             @order_items.order_id = @order.id
             @order_items.save

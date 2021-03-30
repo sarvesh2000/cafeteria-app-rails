@@ -1,69 +1,54 @@
-<%= render 'layouts/navigation' %>
-<%= render 'layouts/sidebar' %>
-<div class="app-main__outer">
-    <div class="app-main__inner">
-        <div class="app-page-title">
-            <div class="page-title-wrapper">
-                <!-- <h1>Owner Dashboard</h1> -->
-                <!-- <%= link_to "Owner Signup", new_owner_path %> -->
-                <div class="row">
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card mb-3 widget-content bg-midnight-bloom">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">Total Orders</div>
-                                    <div class="widget-subheading">Last year expenses</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>1896</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card mb-3 widget-content bg-arielle-smile">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">Clients</div>
-                                    <div class="widget-subheading">Total Clients Profit</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>$ 568</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card mb-3 widget-content bg-grow-early">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">Followers</div>
-                                    <div class="widget-subheading">People Interested</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>46%</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                        <div class="card mb-3 widget-content bg-premium-dark">
-                            <div class="widget-content-wrapper text-white">
-                                <div class="widget-content-left">
-                                    <div class="widget-heading">Products Sold</div>
-                                    <div class="widget-subheading">Revenue streams</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <div class="widget-numbers text-warning"><span>$14M</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%= render 'layouts/footer' %>
+<%= render 'navigation' %>
+<h1>Owner Dashboard</h1>
+<div class="container dashboard-container">
+<div class="user-msg pb-5">
+<div class="text-center">
+    <i class="fas fa-user"></i>
+    <h3 class="purple-txt">Welcome <span id="user"></span></h3>
+    <h6 class="text-muted">
+    Here's an overview of your Cafeteria
+    </h6>
 </div>
-
-
+</div>
+<div class="row card-container">
+<div class="col-lg-4">
+    <div
+    class="card text-center card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+    >
+    <div class="card-body">
+        <i class="fas fa-bookmark"></i>
+        <h5 class="card-title mt-2">Total Sales Today</h5>
+        <p class="card-title count">
+        <span id="existingTotal"><%= @totalSalesToday %></span>
+        </p>
+    </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div
+    class="card text-center bg-light card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+    >
+    <div class="card-body">
+        <i class="fas fa-file-signature"></i>
+        <h5 class="card-title mt-2">Total Orders Today</h5>
+        <p class="card-title">
+        <span id="newTotal"><%= @totalOrdersToday %></span>
+        </p>
+    </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div
+    class="card text-center bg-light card-dashboard pt-2 pb-2 shadow p-3 mb-5 bg-white rounded hvr-float"
+    >
+    <div class="card-body mt-2">
+        <i class="fas fa-book-open"></i>
+        <h5 class="card-title">Total Sales This Week</h5>
+        <p class="card-title">
+        <span id="completedTotal"><%= @totalSalesWeek %></span>
+        </p>
+    </div>
+    </div>
+</div>
+</div>
+</div>
