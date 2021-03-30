@@ -1,0 +1,32 @@
+<%= render 'navigation' %>
+<h1>Pending Orders</h1>
+<table class="table shadow p-3 mb-5 bg-white table-responsive-md">
+    <thead>
+        <tr class="table100-head">
+            <th class="column1">Order ID</th>
+            <th class="column2">Item Name</th>
+            <th class="column3">Amount</th>
+            <th class="column4">Status</th>
+            <th class="column5">Timestamp</th>
+            <th class="column6">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @orders.each do |order|%>
+            <tr>
+                <td><%= order.id%></td>
+                <% order.items.each do |item| %>
+                    <td><%= item.item_name %></td>
+                    <td><%= order.quantity * item.price %></td>
+                    <td><%= order.status %></td>
+                    <td><%= order.updated_at %></td>
+                <% end %>
+                <% if order.status == "pending" %>
+                    <td><%= link_to "Mark as Completed", complete_order_path(order.id), method: :post %></td>
+                <% else %>
+                    <td>Completed</td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
