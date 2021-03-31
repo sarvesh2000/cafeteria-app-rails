@@ -1,0 +1,22 @@
+<%= render 'navigation' %>
+<h1>Cafe Users</h1>
+<table class="table shadow p-3 mb-5 bg-white table-responsive-md">
+    <thead>
+        <tr class="table100-head">
+            <th class="column1">User ID</th>
+            <th class="column2">User Email</th>
+            <th class="column3">Timestamp</th>
+            <th class="column4">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user|%>
+            <tr>
+                <td class="column1"><%= user.cafeteria_user.id%></td>
+                <td class="column2"><%= user.cafeteria_user.email %></td>
+                <td class="column3"><%= user.cafeteria_user.created_at %></td>
+                <td class="column4"><%= link_to "Delete", user_path(user.cafeteria_user.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

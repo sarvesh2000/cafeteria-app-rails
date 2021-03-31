@@ -18,6 +18,16 @@
             <li class="nav-item">
               <a class="nav-link text-white" href="#">Orders</a>
             </li>
+            <li class="nav-item">
+              <a
+              class="nav-link text-white"
+              href="#"
+              data-toggle="modal"
+              data-target="#exampleModal"
+            >
+              <img src="shopping-cart.png" />
+            </a>
+            </li>
             <!-- <li class="nav-item">
               <a class="nav-link text-white" href="#">Positions</a>
             </li>
@@ -33,3 +43,66 @@
         <%= link_to 'Logout', logout_path, class: "btn-sm logout-btn", method: :delete %>
       </div>
     </nav>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <table class="table shadow p-3 mb-5 bg-white table-responsive-md">
+                <thead>
+                  <tr class="table100-head">
+                    <th class="column1">File ID</th>
+                    <th class="column2">Person Name</th>
+                    <th class="column3">File Description</th>
+                    <th class="column4">Priority</th>
+                    <th class="column5">Delivery Date</th>
+                    <th class="column6">Job Type</th>
+                    <th class="column7">Completed On</th>
+                  </tr>
+                </thead>
+                <tbody id="content">
+                  <tr>
+                    <td class="column1">2017-09-29 01:22</td>
+                    <td class="column2">200398</td>
+                    <td class="column3">iPhone X 64Gb Grey</td>
+                    <td class="column4">$999.00</td>
+                    <td class="column5">1</td>
+                    <td class="column6">$999.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Chekout</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>

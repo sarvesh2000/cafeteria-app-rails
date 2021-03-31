@@ -39,6 +39,11 @@ class UsersController < ApplicationController
         redirect_to users_path
     end
 
+    def destroy
+        @user.destroy
+        redirect_to owner_view_users_path
+    end
+
     private
     def user_params
         params.require(:cafeteria_user).permit(:email, :password)

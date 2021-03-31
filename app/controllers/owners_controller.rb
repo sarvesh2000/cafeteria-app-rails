@@ -27,6 +27,11 @@ class OwnersController < ApplicationController
         render "viewOrders"
     end
 
+    def viewUsers
+        @users = OwnerUser.where("cafeteria_owner_id", session[:user_id])
+        render "viewUsers"
+    end
+
     private
     def owner_params
         params.require(:cafeteria_owner).permit(:email, :password, :cafeteria_name)

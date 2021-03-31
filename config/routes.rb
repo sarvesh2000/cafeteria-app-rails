@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   resources :owners
   get "ownerSignin", to: "sessions#newOwner"
   post "ownerSignin", to: "sessions#createOwner"
-  get "owner/orders", to: "owners#viewOrders"
+  get "owner/orders", to: "owners#viewOrders", as: "owner_view_orders"
+  get "owner/users", to: "owners#viewUsers", as: "owner_view_users"
 
   # Auth Routes
   delete "logout", to: "sessions#destroy"
