@@ -1,6 +1,6 @@
 <%= form_with(model: @item, local: true) do |f| %>
-    <%= f.text_field :item_name %>    
-    <%= f.number_field :available_stock %>
-    <%= f.number_field :price %>
+    <%= f.text_field :item_name, placeholder: "Item Name" %>    
+    <%= f.number_field :available_stock, placeholder: "Available Stock" %>
+    <%= f.number_field :price, placeholder: "Price" %>
     <%= f.submit %>
 <% end %>

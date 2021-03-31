@@ -12,12 +12,12 @@
     <tbody>
         <% @completedOrders.each do |order|%>
             <tr>
-                <td><%= order.id%></td>
+                <td class="column1"><%= order.id%></td>
                 <% order.items.each do |item| %>
-                    <td><%= item.item_name %></td>
-                    <td><%= order.quantity * item.price %></td>
+                    <td class="column2"><%= item.item_name %></td>
+                    <td class="column3"><%= order.quantity * item.price %></td>
                 <% end %>
-                <td><%= order.updated_at %></td>
+                <td class="column4"><%= order.updated_at %></td>
             </tr>
         <% end %>
     </tbody>

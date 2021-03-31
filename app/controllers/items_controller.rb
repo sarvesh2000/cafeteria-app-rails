@@ -2,18 +2,26 @@ class ItemsController < ApplicationController
     before_action :set_item, only: [:show, :update, :edit, :destroy]
     
     def index
-        @items = Item.all
+        @items = OwnerItem.where("cafeteria_owner_id", session[:user_id])
     end
 
     def show
     end
 
     def create
+        @ownerItems = OwnerItem.new
         @item = Item.new(items_params)
         if @item.save
             #flash[:notice] = "Article was created successfully."
             @item.save()
-            redirect_to items_path(@item)
+            @ownerItems.cafeteria_owner_id = session[:user_id]
+            @ownerItems.item_id = @item.id
+            @ownerItems.save
+            if @ownerItems.save
+                redirect_to items_path(@item)
+            else
+                render "new"
+            end
             # or we can write like this
             #redirect_to @article
         else
