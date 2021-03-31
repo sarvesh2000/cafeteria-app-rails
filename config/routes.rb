@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "/users/orders/view/pending", to: "users#viewPendingOrders", as: "view_pending_orders"
   get "/users/orders/view/completed", to: "users#viewCompletedOrders", as: "view_completed_orders"
   post "orders/complete/:id", to: "users#completeOrder", as: "complete_order"
+  get "/user/createOrder", to: "users#createOrder", as: "cafeteria_user_create_order"
   
   # Customer Routes
   get "customerSignup", to: "customers#new"

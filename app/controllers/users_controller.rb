@@ -39,6 +39,11 @@ class UsersController < ApplicationController
         redirect_to users_path
     end
 
+    def createOrder
+        session[:user_id] = Customer.where(email: "default@cafe.com").ids[0]
+        redirect_to cafeteria_profile_path(session[:user_id])
+    end
+
     def destroy
         @user.destroy
         redirect_to owner_view_users_path
