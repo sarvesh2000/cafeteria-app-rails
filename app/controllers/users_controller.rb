@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :setOwnerId
+
     def new
         @user = CafeteriaUser.new
     end
@@ -23,12 +25,12 @@ class UsersController < ApplicationController
     end
 
     def viewPendingOrders
-        @pendingOrders = Order.where(status: "pending")
+        @pendingOrders = Order.where("status = 'pending' AND owner_id = ?", @owner_id)
         render "pendingOrders"
     end
 
     def viewCompletedOrders
-        @completedOrders = Order.where(status: "completed")
+        @completedOrders = Order.where("status = 'completed' AND owner_id = ?", @owner_id)
         render "completedOrders"
     end
 
@@ -44,6 +46,11 @@ class UsersController < ApplicationController
         redirect_to cafeteria_profile_path(session[:user_id])
     end
 
+    def allOrders
+        @allOrders = Order.where(owner_id: @owner_id)
+        render "orderHistory"
+    end
+
     def destroy
         @user.destroy
         redirect_to owner_view_users_path
@@ -52,5 +59,9 @@ class UsersController < ApplicationController
     private
     def user_params
         params.require(:cafeteria_user).permit(:email, :password)
+    end
+
+    def setOwnerId
+        @owner_id = OwnerUser.where(cafeteria_user_id: session[:user_id]).first.cafeteria_owner_id
     end
 end
