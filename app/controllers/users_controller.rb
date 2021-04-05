@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     def create
         @user = CafeteriaUser.new(user_params)
         if @user.save
-            #flash[:notice] = "Article was created successfully."
+            flash[:notice] = "Cafeteria User was created successfully."
             @user.save()
             redirect_to users_path
             # or we can write like this
@@ -38,6 +38,7 @@ class UsersController < ApplicationController
         @order = Order.find(params[:id])
         @order.status = "completed"
         @order.save
+        flash[:notice] = "Order Status Updated Successfully."
         redirect_to users_path
     end
 

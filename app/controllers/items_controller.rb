@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
         @ownerItems = OwnerItem.new
         @item = Item.new(items_params)
         if @item.save
-            #flash[:notice] = "Article was created successfully."
+            flash[:notice] = "Item created."
             @item.save()
             @ownerItems.cafeteria_owner_id = session[:user_id]
             @ownerItems.item_id = @item.id
@@ -39,6 +39,7 @@ class ItemsController < ApplicationController
     def update
         if @item.update(items_params)
             @item.save()
+            flash[:notice] = "Item updated."
             redirect_to(items_path)
         else
             render "edit"
@@ -47,14 +48,12 @@ class ItemsController < ApplicationController
 
     def destroy
         @item.destroy
+        flash[:notice] = "Item Deleted"
         redirect_to items_path
     end
 
     def addToCart
-        puts "Request Params"
-        puts request.params
         id = params[:id]
-        
         if session[:cart].empty?
             cartHash = Hash.new
             cartHash.store(id, 1)
@@ -62,12 +61,12 @@ class ItemsController < ApplicationController
         else
             if session[:cart][0].has_key?(id)
                 count = session[:cart][0][id]
-                puts count
                 session[:cart][0][id] = count+1
             else
                 session[:cart][0].store(id, 1)
             end
         end
+        flash[:notice] = "Added Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
 
@@ -79,6 +78,7 @@ class ItemsController < ApplicationController
         else
             session[:cart][0].delete(id)
         end
+        flash[:notice] = "Removed Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
 

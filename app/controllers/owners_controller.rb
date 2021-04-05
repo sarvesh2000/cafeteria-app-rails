@@ -12,7 +12,7 @@ class OwnersController < ApplicationController
     def create
         @owner = CafeteriaOwner.new(owner_params)
         if @owner.save
-            #flash[:notice] = "Article was created successfully."
+            flash[:notice] = "Owner Created Successfully."
             @owner.save()
             redirect_to owners_path
             # or we can write like this

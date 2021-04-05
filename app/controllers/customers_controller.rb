@@ -13,12 +13,13 @@ class CustomersController < ApplicationController
     def create
         @user = Customer.new(user_params)
         if @user.save
-            #flash[:notice] = "Article was created successfully."
+            flash[:notice] = "Signup Successful"
             @user.save()
             redirect_to customers_path
             # or we can write like this
             #redirect_to @article
         else
+            flash[:notice] = "There\'s some error in signing up. Try again."
             render "new"
         end
     end
@@ -40,6 +41,7 @@ class CustomersController < ApplicationController
             @order_items.order_id = @order.id
             @order_items.save
         end
+        flash[:notice] = "Order Placed Successfully."
         return redirect_to customers_path
     end
 

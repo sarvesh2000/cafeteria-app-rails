@@ -1,6 +1,17 @@
-<%= form_with(model: @item, local: true) do |f| %>
-    <%= f.text_field :item_name, placeholder: "Item Name" %>    
-    <%= f.number_field :available_stock, placeholder: "Available Stock" %>
-    <%= f.number_field :price, placeholder: "Price" %>
-    <%= f.submit %>
-<% end %>
+<div class="container">
+    <%= form_with(model: @item, local: true) do |f| %>
+    <div class="mb-3">
+        <%= f.label :item_name, class: "form-label" %>
+        <%= f.text_field :item_name, placeholder: "Item Name", class: "form-control" %>    
+    </div>
+    <div class="mb-3">
+        <%= f.label :available_stock, class: "form-label" %>
+        <%= f.number_field :available_stock, placeholder: "Available Stock", class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :price, class: "form-label" %>
+        <%= f.number_field :price, placeholder: "Price", class: "form-control" %>
+    </div>
+    <%= f.submit "Create New Item", class: "btn btn-primary" %>
+    <% end %>
+</div>
