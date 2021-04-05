@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+    before_action :check_session_user, except: [:addToCart, :removeFromCart]
     before_action :set_item, only: [:show, :update, :edit, :destroy]
     
     def index
@@ -90,5 +91,11 @@ class ItemsController < ApplicationController
 
     def set_item
         @item = Item.find(params[:id])
+    end
+
+    def check_session_user
+        if session[:user_type] != "Cafe Owner"
+            redirect_to unauthorised_path
+        end
     end
 end

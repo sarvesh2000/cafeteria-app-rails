@@ -1,4 +1,7 @@
 class OwnersController < ApplicationController
+
+    before_action :check_session_user
+
     def index
         @totalSalesToday = Order.where("DATE(created_at) = ?", Date.today).sum("amount")
         @totalOrdersToday = Order.where("DATE(created_at) = ?", Date.today).count
@@ -36,4 +39,11 @@ class OwnersController < ApplicationController
     def owner_params
         params.require(:cafeteria_owner).permit(:email, :password, :cafeteria_name)
     end
+
+    def check_session_user
+        if session[:user_type] != "Cafe Owner"
+            redirect_to unauthorised_path
+        end
+    end
+    
 end

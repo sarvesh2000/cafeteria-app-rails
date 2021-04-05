@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   # Home Page Route
   root "pages#home"
+  get "unauthorised", to: "pages#unauthorised"
 
   # Items Routes
   resources :items

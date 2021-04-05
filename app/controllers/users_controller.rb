@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    before_action :check_session_user
     before_action :setOwnerId
 
     def new
@@ -9,6 +10,9 @@ class UsersController < ApplicationController
         @pendingCount = Order.where(status: "pending").count
         @completedCount = Order.where(status: "completed").count
         @totalCount = Order.all.count
+        if session[:cafe_user_id]
+            session[:cafe_user_id] = nil
+        end
     end
 
     def create
@@ -43,7 +47,9 @@ class UsersController < ApplicationController
     end
 
     def createOrder
+        session[:cafe_user_id] = session[:user_id]
         session[:user_id] = Customer.where(email: "default@cafe.com").ids[0]
+        session[:user_type] = "Customer"
         redirect_to cafeteria_profile_path(session[:user_id])
     end
 
@@ -64,5 +70,11 @@ class UsersController < ApplicationController
 
     def setOwnerId
         @owner_id = OwnerUser.where(cafeteria_user_id: session[:user_id]).first.cafeteria_owner_id
+    end
+
+    def check_session_user
+        if session[:user_type] != "Cafe User"
+            redirect_to unauthorised_path
+        end
     end
 end

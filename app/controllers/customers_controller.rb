@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+    before_action :check_session_user
     before_action :initialize_cart
     before_action :load_cart
     def new
@@ -15,6 +16,8 @@ class CustomersController < ApplicationController
         if @user.save
             flash[:notice] = "Signup Successful"
             @user.save()
+            session[:user_id] = @user.id
+            session[:user_type] = "Customer"
             redirect_to customers_path
             # or we can write like this
             #redirect_to @article
@@ -42,7 +45,13 @@ class CustomersController < ApplicationController
             @order_items.save
         end
         flash[:notice] = "Order Placed Successfully."
-        return redirect_to customers_path
+        if session[:cafe_user_id]
+            session[:user_id] = session[:cafe_user_id]
+            session[:user_type] = "Cafe User"
+            redirect_to users_path
+        else
+            redirect_to customers_path
+        end
     end
 
     def viewCafeteria
@@ -71,6 +80,12 @@ class CustomersController < ApplicationController
             @cart = Item.find(session[:cart][0].keys)
         else
             @cart = []
+        end
+    end
+
+    def check_session_user
+        if session[:user_type] != "Customer"
+            redirect_to unauthorised_path
         end
     end
 end
