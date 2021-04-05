@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-    before_action :check_session_user
-    before_action :setOwnerId
+    before_action :check_session_user, except: [:create, :new]
+    before_action :setOwnerId, except: [:create, :new]
 
     def new
         @user = CafeteriaUser.new
@@ -18,12 +18,15 @@ class UsersController < ApplicationController
     def create
         @user = CafeteriaUser.new(user_params)
         if @user.save
-            flash[:notice] = "Cafeteria User was created successfully."
             @user.save()
-            redirect_to users_path
+            @owner_user = OwnerUser.new(cafeteria_user_id: @user.id, cafeteria_owner_id: session[:user_id])
+            @owner_user.save()
+            flash[:notice] = "Cafeteria User was created successfully."
+            redirect_to owners_path
             # or we can write like this
             #redirect_to @article
         else
+            flash[:notice] = "Error Creating Cafeteria User"
             render "new"
         end
     end

@@ -1,6 +1,12 @@
 <h1>Create New User</h1>
-<%= form_with(model: @user, local: true, url: users_path) do |f| %>
-    <%= f.email_field :email %>    
-    <%= f.password_field :password %>
-    <%= f.submit %>
+<%= form_with(model: @user, url: users_path, local: true) do |f| %>
+    <div class="mb-3">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, placeholder: "Enter cafeteria user email address", class: "form-control" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, placeholder: "Enter cafeteria user password", class: "form-control" %>
+    </div>
+    <%= f.submit "Create Cafeteria User", class: "btn btn-primary" %>
 <% end %>
