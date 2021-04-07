@@ -28,15 +28,15 @@ class CustomersController < ApplicationController
     end
 
     def checkout
-        @cart = load_cart
-        @cart.each do |item|
+        @cart = Cart.find(session[:cart])
+        @cart.cart_items.each do |item|
             @order = Order.new
             @order_items = OrderItem.new
-            @item = Item.find(item.id)
+            @item = Item.find(item.item_id)
             @order.item_id = @item.id
             @order_items.item_id = @item.id
-            @order.amount = (@item.price * session[:cart][0][@item.id.to_s])
-            @order.quantity = session[:cart][0][@item.id.to_s]
+            @order.amount = (@item.price * item.quantity)
+            @order.quantity = item.quantity
             @order.status = "pending"
             @order.customer_id = session[:user_id]
             @order.owner_id = session[:cafeteria_id]
@@ -44,6 +44,7 @@ class CustomersController < ApplicationController
             @order_items.order_id = @order.id
             @order_items.save
         end
+        @cart.destroy
         flash[:notice] = "Order Placed Successfully."
         if session[:cafe_user_id]
             session[:user_id] = session[:cafe_user_id]
@@ -58,6 +59,11 @@ class CustomersController < ApplicationController
         session[:cafeteria_id] = params[:cafeteria_id]
         @items = CafeteriaOwner.find(params[:cafeteria_id]).items
         @cafeteria_name = CafeteriaOwner.find(params[:cafeteria_id]).cafeteria_name
+        puts "Session Cart Cafe Function"
+        puts @cart
+        # @cart = Cart.find(session[:cart])
+        # puts "CArt"
+        # puts @cart
         render "cafeteriaProfile"
     end
 
@@ -76,11 +82,22 @@ class CustomersController < ApplicationController
     end
 
     def load_cart
-        if session[:cart][0]
-            @cart = Item.find(session[:cart][0].keys)
-        else
-            @cart = []
-        end
+        puts "Load"
+        puts "Load Session Cart"
+        puts session[:cart]
+        @cart = Cart.find(session[:cart])
+        # session[:cart] = @cart.id
+        puts "Before Rescue"
+        rescue ActiveRecord::RecordNotFound
+        puts "After Rescue"
+        @cart = Cart.new
+        @cart.customer_id = session[:user_id]
+        @cart.save
+        puts "Saved"
+        puts "Cart ID"
+        puts @cart.id
+        session[:cart] = @cart.id
+        puts "End"
     end
 
     def check_session_user

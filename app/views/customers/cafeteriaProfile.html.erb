@@ -2,20 +2,21 @@
 <h1>Customers Ordering Page</h1>
 <details>
     <summary>Cart</summary>
-    <% if @cart.empty? %>
-        <p>Cart is Empty</p>
-    <% else %>
+   
     <ul>
-        <% @cart.each do |product| %>
-            <li><%= product.item_name %></li>
-            <li><%= session[:cart][0][product.id.to_s] %></li>
+      <% if @cart.cart_items.empty?%>
+        <p> Cart is Empty </p>
+      <% else %>
+        <% for i in 0..(@cart.cart_items.length - 1) %>
+            <li><%= @cart.items[i].item_name %></li>
+            <li><%= @cart.cart_items[i].quantity %></li>
             <li>
-                <%= link_to "Remove From Cart", remove_from_cart_path(product.id), method: :delete %>
+                <%= link_to "Remove From Cart", remove_from_cart_path(@cart.cart_items[i].item_id), method: :delete %>
             </li>
         <% end %>
+        <%= link_to "Checkout", checkout_path, method: :post %>
+      <% end %>
     </ul>
-    <%= link_to "Checkout", checkout_path, method: :post %>
-    <% end %>
 </details>
 <div class="orphanage-body-container">
         <!-- jumbotron-->

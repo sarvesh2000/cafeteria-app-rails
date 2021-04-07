@@ -55,30 +55,60 @@ class ItemsController < ApplicationController
 
     def addToCart
         id = params[:id]
-        if session[:cart].empty?
-            cartHash = Hash.new
-            cartHash.store(id, 1)
-            session[:cart] << cartHash
+        current_item = CartItem.find_by(item_id: id)
+        if current_item
+            current_item.quantity += 1
+            current_item.save
         else
-            if session[:cart][0].has_key?(id)
-                count = session[:cart][0][id]
-                session[:cart][0][id] = count+1
+            if Cart.find(session[:cart]).cart_items_id == nil
+                cart = Cart.find(session[:cart])
+                new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
+                cart.cart_items_id = new_item.id
+                cart.save 
             else
-                session[:cart][0].store(id, 1)
+                new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
+                new_item.save
             end
         end
+        # if session[:cart].empty?
+        #     cartHash = Hash.new
+        #     cartHash.store(id, 1)
+        #     session[:cart] << cartHash
+        # else
+        #     if session[:cart][0].has_key?(id)
+        #         count = session[:cart][0][id]
+        #         session[:cart][0][id] = count+1
+        #     else
+        #         session[:cart][0].store(id, 1)
+        #     end
+        # end
         flash[:notice] = "Added Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
 
     def removeFromCart
         id = params[:id]
-        if session[:cart][0][id] > 1
-            value = session[:cart][0][id] - 1
-            session[:cart][0][id] = value
-        else
-            session[:cart][0].delete(id)
+        cart = Cart.find(session[:cart])
+        puts "Found Cart"
+        if cart.cart_items
+            puts "Inside Cart if"
+            cart_items = cart.cart_items.find_by(item_id: id)
+            if cart_items.quantity > 1
+                puts "Reducing quantity"
+                cart_items.quantity -= 1
+                puts "Reduced quantity"
+                cart_items.save
+            else
+                puts "Removing entire item"
+                cart_items.destroy
+            end
         end
+        # if session[:cart][0][id] > 1
+        #     value = session[:cart][0][id] - 1
+        #     session[:cart][0][id] = value
+        # else
+        #     session[:cart][0].delete(id)
+        # end
         flash[:notice] = "Removed Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
