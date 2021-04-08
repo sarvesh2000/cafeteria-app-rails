@@ -10,11 +10,11 @@
     <tbody>
         <% @items.each do |item| %>
         <tr>
-            <td class="column1"><%= item.item.item_name %></td>
+            <td class="column1"><%= item.item_name %></td>
             <td class="column2">
-                <%= link_to "View", item_path(item.item_id) %>
-                <%= link_to "Edit", edit_item_path(item.item_id) %>
-                <%= link_to "Delete", item_path(item.item_id), method: :delete, data: {confirm: "Are you sure?"} %>
+                <%= link_to "View", item_path(item.id) %>
+                <%= link_to "Edit", edit_item_path(item.id) %>
+                <%= link_to "Delete", item_path(item.id), method: :delete, data: {confirm: "Are you sure?"} %>
             </td>
         </tr>
         <% end %>

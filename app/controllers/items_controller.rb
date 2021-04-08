@@ -3,28 +3,18 @@ class ItemsController < ApplicationController
     before_action :set_item, only: [:show, :update, :edit, :destroy]
     
     def index
-        @items = OwnerItem.where("cafeteria_owner_id", session[:user_id])
+        @items = Item.where("cafeteria_owner_id", session[:user_id])
     end
 
     def show
     end
 
     def create
-        @ownerItems = OwnerItem.new
         @item = Item.new(items_params)
         if @item.save
             flash[:notice] = "Item created."
             @item.save()
-            @ownerItems.cafeteria_owner_id = session[:user_id]
-            @ownerItems.item_id = @item.id
-            @ownerItems.save
-            if @ownerItems.save
-                redirect_to items_path(@item)
-            else
-                render "new"
-            end
-            # or we can write like this
-            #redirect_to @article
+            redirect_to items_path(@item)
         else
             render "new"
         end
@@ -55,33 +45,32 @@ class ItemsController < ApplicationController
 
     def addToCart
         id = params[:id]
-        current_item = Cart.find(session[:cart]).cart_items.find_by(item_id: id)
-        if current_item
-            current_item.quantity += 1
-            current_item.save
+        @cart = CartItem.where(customer_id: session[:user_id])
+        if @cart == nil
+            puts "Cart Created Newly 1"
+            @cart = CartItem.create(item_id: id, quantity: 1, customer_id: session[:user_id])
         else
-            if Cart.find(session[:cart]).cart_items_id == nil
-                cart = Cart.find(session[:cart])
-                new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
-                cart.cart_items_id = new_item.id
-                cart.save 
+            puts "Checking Current Item"
+            current_item = @cart.where(item_id: id)
+            if !current_item.empty?
+                puts "Current Item Found"
+                puts current_item
+                current_item.first.quantity += 1
+                current_item.first.save
             else
-                new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
-                new_item.save
+                puts "Current Item Not Found"
+                # if Cart.find(session[:cart]).cart_items_id == nil
+                #     cart = Cart.find(session[:cart])
+                #     new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
+                #     cart.cart_items_id = new_item.id
+                #     cart.save 
+                # else
+                @cart = CartItem.create(item_id: id, quantity: 1, customer_id: session[:user_id])
+                # new_item.save
+                puts "New Item Saved"
+                # end
             end
         end
-        # if session[:cart].empty?
-        #     cartHash = Hash.new
-        #     cartHash.store(id, 1)
-        #     session[:cart] << cartHash
-        # else
-        #     if session[:cart][0].has_key?(id)
-        #         count = session[:cart][0][id]
-        #         session[:cart][0][id] = count+1
-        #     else
-        #         session[:cart][0].store(id, 1)
-        #     end
-        # end
         flash[:notice] = "Added Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
@@ -103,12 +92,6 @@ class ItemsController < ApplicationController
                 cart_items.destroy
             end
         end
-        # if session[:cart][0][id] > 1
-        #     value = session[:cart][0][id] - 1
-        #     session[:cart][0][id] = value
-        # else
-        #     session[:cart][0].delete(id)
-        # end
         flash[:notice] = "Removed Item to cart"
         redirect_to cafeteria_profile_path(session[:cafeteria_id])
     end
@@ -116,7 +99,7 @@ class ItemsController < ApplicationController
     private
     
     def items_params
-        params.require(:item).permit(:item_name, :available_stock, :price)
+        params.require(:item).permit(:item_name, :available_stock, :price, :cafeteria_owner_id)
     end
 
     def set_item

@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     end
 
     def setOwnerId
-        @owner_id = OwnerUser.where(cafeteria_user_id: session[:user_id]).first.cafeteria_owner_id
+        @owner_id = CafeteriaUser.find(session[:user_id])
     end
 
     def check_session_user

@@ -12,6 +12,7 @@
         <%= f.label :price, class: "form-label" %>
         <%= f.number_field :price, placeholder: "Price", class: "form-control" %>
     </div>
+    <%= f.hidden_field :cafeteria_owner_id,  :value=> session[:user_id] %>
     <%= f.submit "Create New Item", class: "btn btn-primary" %>
     <% end %>
 </div>

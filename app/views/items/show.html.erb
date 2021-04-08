@@ -1,5 +1,8 @@
 <%= render 'owners/navigation' %>
-<p><%= simple_format(@item.item_name) %></p>
-<p><%= @item.available_stock %></p>
-<%= link_to "Edit", edit_item_path(@item) %>
-<%= link_to "Delete", item_path(@item), method: :delete, data: {confirm: "Are you sure?"} %>
+<div class="container mt-3">
+    <p>Item Name: <%= @item.item_name %></p>
+    <p>Available Stock: <%= @item.available_stock %></p>
+    <p>Price: <%= @item.price %></p>
+    <%= link_to "Edit", edit_item_path(@item) %>
+    <%= link_to "Delete", item_path(@item), method: :delete, data: {confirm: "Are you sure?"} %>
+</div>

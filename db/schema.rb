@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_073409) do
+ActiveRecord::Schema.define(version: 2021_04_08_105959) do
 
   create_table "cafeteria_owners", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email"
@@ -25,21 +25,15 @@ ActiveRecord::Schema.define(version: 2021_04_07_073409) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cafeteria_owner_id"
   end
 
   create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "cart_id"
     t.bigint "item_id"
     t.bigint "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "carts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "customer_id"
-    t.bigint "cart_items_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "customers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -55,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_073409) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price"
+    t.bigint "cafeteria_owner_id"
   end
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -62,31 +57,17 @@ ActiveRecord::Schema.define(version: 2021_04_07_073409) do
     t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity"
+    t.integer "subtotal"
   end
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "quantity"
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
     t.bigint "customer_id"
     t.bigint "owner_id"
-  end
-
-  create_table "owner_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "cafeteria_owner_id"
-    t.bigint "item_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "owner_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "cafeteria_user_id"
-    t.bigint "cafeteria_owner_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
