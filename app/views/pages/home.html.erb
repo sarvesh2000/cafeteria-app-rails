@@ -1,6 +1,36 @@
-<h1>Home Page</h1>
-<%= link_to "Cafeteria User Login", signin_path %>
-<%= link_to "Customer Signup", customerSignup_path %>
-<%= link_to "Customer Login", customerSignin_path %>
-<%= link_to "Owner Login", ownerSignin_path %>
-
+<%= render 'navigation' %>
+<div class="jumbotron my-2">
+  <h1 class="display-4">Welcome to Masala Cafe</h1>
+  <p class="lead">An all in one cafe where you can order food from many best restaurants around you.</p>
+  <hr class="my-4">
+  <p>We provide you the best food with great convenience</p>
+</div>
+<div class="container my-5">
+    <h1>Reasons why you should choose us</h1>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Best in class Customer Support</h5>
+                    <p class="card-text">We provide great customer satisfaction.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">High variety of restaurants</h5>
+                    <p class="card-text">Our all in one cafe has a wide range of partner restaurants so that you can eat whatever you like.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Nominal Delivery Fee</h5>
+                    <p class="card-text">We charge only a nominal delivery fee to get your happiness deliverd.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
