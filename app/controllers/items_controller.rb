@@ -59,16 +59,8 @@ class ItemsController < ApplicationController
                 current_item.first.save
             else
                 puts "Current Item Not Found"
-                # if Cart.find(session[:cart]).cart_items_id == nil
-                #     cart = Cart.find(session[:cart])
-                #     new_item = CartItem.create(item_id: id, quantity: 1, cart_id: session[:cart])
-                #     cart.cart_items_id = new_item.id
-                #     cart.save 
-                # else
                 @cart = CartItem.create(item_id: id, quantity: 1, customer_id: session[:user_id])
-                # new_item.save
                 puts "New Item Saved"
-                # end
             end
         end
         flash[:notice] = "Added Item to cart"
@@ -77,19 +69,19 @@ class ItemsController < ApplicationController
 
     def removeFromCart
         id = params[:id]
-        cart = Cart.find(session[:cart])
+        @cart = CartItem.where(customer_id: session[:user_id])
         puts "Found Cart"
-        if cart.cart_items
+        if @cart
             puts "Inside Cart if"
-            cart_items = cart.cart_items.find_by(item_id: id)
-            if cart_items.quantity > 1
+            current_item = @cart.where(item_id: id)
+            if current_item.first.quantity > 1
                 puts "Reducing quantity"
-                cart_items.quantity -= 1
+                current_item.first.quantity -= 1
                 puts "Reduced quantity"
-                cart_items.save
+                current_item.first.save
             else
                 puts "Removing entire item"
-                cart_items.destroy
+                current_item.destroy_all
             end
         end
         flash[:notice] = "Removed Item to cart"
