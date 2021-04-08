@@ -78,7 +78,8 @@ class CustomersController < ApplicationController
     end
 
     def initialize_cart
-        session[:cart] ||= []
+        puts "Session Cart Initialise"
+        session[:cart] ||= nil
     end
 
     def load_cart
@@ -86,7 +87,7 @@ class CustomersController < ApplicationController
         puts "Load Session Cart"
         puts session[:cart]
         @cart = Cart.find(session[:cart])
-        # session[:cart] = @cart.id
+        session[:cart] = @cart.id
         puts "Before Rescue"
         rescue ActiveRecord::RecordNotFound
         puts "After Rescue"

@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
 
     def addToCart
         id = params[:id]
-        current_item = CartItem.find_by(item_id: id)
+        current_item = Cart.find(session[:cart]).cart_items.find_by(item_id: id)
         if current_item
             current_item.quantity += 1
             current_item.save
