@@ -3,7 +3,7 @@
 <details>
     <summary>Cart</summary>
     <ul>
-      <% if @cart == nil %>
+      <% if @cart == nil || @cart.empty?%>
         <p> Cart is Empty </p>
       <% else %>
         <% @cart.each do |item| %>

@@ -53,7 +53,7 @@ class CustomersController < ApplicationController
             session[:user_type] = "Cafe User"
             redirect_to users_path
         else
-            redirect_to customers_path
+            redirect_to customer_order_history_path
         end
     end
 
